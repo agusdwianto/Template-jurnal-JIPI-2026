@@ -1,0 +1,685 @@
+% =========================================================
+% TEMPLATE JURNAL INOVASI PAJAK INDONESIA (JIPI) - FINAL FIX
+% =========================================================
+
+\documentclass[10pt,a4paper,twoside]{article}
+
+% =========================================================
+% 1. PREAMBLE & PAKET
+% =========================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}       % Bahasa
+\usepackage{mathptmx}             % Font pengganti Gulliver (Times Style)
+\usepackage[scaled=0.92]{helvet}  % Font Helvetica untuk header
+% --- UPDATE MARGIN (Supaya header tidak mepet atas) ---
+\usepackage[top=1.8cm,bottom=2.5cm,left=1.5cm,right=1.5cm]{geometry} 
+\usepackage{graphicx}             % Untuk gambar
+\usepackage{tikz}                 % Untuk posisi logo
+\graphicspath{{./}}
+\usepackage{xcolor}
+\usepackage{booktabs}             % Tabel profesional
+\usepackage{array}
+\usepackage{tabularx}             % Tabel lebar otomatis
+\usepackage{multicol}             % Kolom ganda
+% --- SETTING SITASI & WARNA LINK (BIRU SEPERTI GAMBAR) ---
+\usepackage[authoryear,round]{natbib} % Format (Author, Year)
+\setlength{\bibsep}{0pt plus 0.3ex}    % Jarak antar daftar pustaka rapat
+\usepackage{hyperref} 
+\hypersetup{
+    colorlinks=true,       % Aktifkan warna
+    linkcolor=blue,        % Warna link internal (Gambar/Tabel)
+    citecolor=blue,        % Warna sitasi (Chen et al., 2012) -> BIRU
+    urlcolor=blue          % Warna URL
+}
+\usepackage{fancyhdr}             % Header & Footer
+\usepackage{titlesec}             % Format Judul Bab
+\usepackage{microtype}            % Perbaikan tipografi
+\usepackage{float}                % Penempatan gambar [H] -> PENTING!
+\usepackage{ragged2e}             % Justify text
+\usepackage{lipsum}               % Text dummy
+
+% =========================================================
+% SETTING CAPTION (JUDUL) - UPDATE TERBARU
+% =========================================================
+\usepackage{caption}
+
+% 1. Definisi Font Ukuran 8pt (Sesuai request 7/8)
+\DeclareCaptionFont{smallcaption}{\fontsize{8}{10}\selectfont} 
+
+% 2. Setting Khusus TABEL (Judul Rata Kiri)
+\captionsetup[table]{
+    font={smallcaption},      % Font 8pt
+    labelfont=bf,             % Label "Table 1" Bold
+    justification=raggedright,% RATA KIRI (Wajib untuk Tabel)
+    singlelinecheck=false,    % Paksa kiri meskipun kalimat pendek
+    labelsep=period,          % Pemisah titik (.)
+    skip=5pt
+}
+
+% 3. Setting Khusus GAMBAR (Judul Rata Tengah/Center)
+\captionsetup[figure]{
+    font={smallcaption},      % Font 8pt
+    labelfont=bf,             % Label "Figure 1" Bold
+    justification=centering,  % RATA TENGAH (Wajib untuk Gambar)
+    singlelinecheck=true,     % Otomatis tengah
+    labelsep=period,          % Pemisah titik (.)
+    skip=5pt
+}
+
+% --- INDENTASI & JARAK ---
+\usepackage{indentfirst}        
+\setlength{\parindent}{0.6cm}   
+\setlength{\parskip}{0pt}       
+\setlength{\columnsep}{0.7cm}   
+
+% =========================================================
+% 2. DEFINISI LOGO & LINK
+% =========================================================
+\newcommand{\mailicon}[1]{\href{mailto:#1}{\raisebox{-0.5ex}{\includegraphics[height=10pt]{Logo mail.png}}}}
+\newcommand{\orcidlink}[1]{\href{#1}{\raisebox{-1pt}{\includegraphics[height=9pt]{orcid.png}}}}
+\newcommand{\doilink}[1]{\href{#1}{\raisebox{-1pt}{\includegraphics[height=9pt]{doi-icon.png}}}}
+\newcommand{\crossmarkicon}{\raisebox{-0.25ex}{\includegraphics[height=14pt]{CROSSMARK.png}}}
+\newcommand{\crossmarklink}{\href{https://analysisdata.co.id/index.php/JIPI/crossmark-policy}{\crossmarkicon}}
+\newcommand{\ccbysaicon}{\raisebox{1.3pt}{\includegraphics[height=15pt]{cc-by-sa.png}}}
+
+% =========================================================
+% 3. HEADER & FOOTER (SETTING HALAMAN 2 DST)
+% =========================================================
+% --- DEFINISI WARNA ---
+\definecolor{customblue}{HTML}{1F4E79} 
+
+% --- VARIABEL HEADER (GANTI NAMA & TAHUN DISINI) ---
+\newcommand{\runningauthor}{S. Adellya et al. (2025)} % <-- Nama & Tahun Peneliti
+\newcommand{\runningjournal}{\textit{Jurnal Inovasi Pajak Indonesia (JIPI)}, Vol. 2, No. 2, 2025}
+
+% --- SETUP FANCYHDR ---
+\pagestyle{fancy}
+\fancyhf{} % Reset setting
+
+% 1. PENGATURAN HEADER (ATAS)
+% Halaman Genap (LE): Nama Jurnal
+\fancyhead[LE]{\fontsize{6}{10}\selectfont \textcolor{gray}{\runningjournal}}
+% Halaman Ganjil (RO): Nama Peneliti & Tahun
+\fancyhead[RO]{\fontsize{6}{10}\selectfont \textcolor{gray}{\runningauthor}}
+
+% 2. GARIS HEADER BERWARNA BIRU
+\renewcommand{\headrulewidth}{0.5pt} 
+\renewcommand{\headrule}{%
+    \hbox to\headwidth{%
+        \color{customblue}\leaders\hrule height \headrulewidth\hfill%
+    }%
+}
+
+% 3. PENGATURAN FOOTER (BAWAH) - Tetap
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\CCFooter}{%
+  \fontsize{8}{10}\selectfont
+  \ccbysaicon%
+  \hspace{6pt}%
+  \parbox[b]{0.78\textwidth}{%
+    Jurnal Inovasi Pajak Indonesia (JIPI) © 2025 by Inovasi Analisis Data is licensed under a
+    Creative Commons Attribution-ShareAlike 4.0 International License.
+  }%
+}
+\fancyfoot[LE,LO]{\CCFooter}
+\fancyfoot[RE,RO]{\fontsize{8}{10}\selectfont \textbf{\thepage}}
+
+% Mencegah warning headheight terlalu kecil
+\setlength{\headheight}{15pt}
+
+% 3. PENGATURAN FOOTER (BAWAH) - Tetap Sesuai Pedoman JIPI
+\renewcommand{\footrulewidth}{0.4pt}
+
+% GUNAKAN \renewcommand AGAR TIDAK ERROR "ALREADY DEFINED"
+\renewcommand{\CCFooter}{% 
+  \fontsize{8}{10}\selectfont
+  \ccbysaicon%
+  \hspace{6pt}%
+  \parbox[b]{0.78\textwidth}{%
+    Jurnal Inovasi Pajak Indonesia (JIPI) \copyright\ 2025 by Inovasi Analisis Data is licensed under a
+    Creative Commons Attribution-ShareAlike 4.0 International License.
+  }%
+}
+
+% Footer Kiri (Genap/Ganjil)
+\fancyfoot[LE,LO]{\CCFooter}
+% Footer Kanan (Nomor Halaman)
+\fancyfoot[RE,RO]{\fontsize{8}{10}\selectfont \textbf{\thepage}}
+
+% Footer Kiri (Genap/Ganjil)
+\fancyfoot[LE,LO]{\CCFooter}
+% Footer Kanan (Nomor Halaman)
+\fancyfoot[RE,RO]{\fontsize{8}{10}\selectfont \textbf{\thepage}}
+
+% =========================================================
+% 4. FORMAT JUDUL BAB (SECTION STYLES)
+% =========================================================
+\titleformat{\section}
+  {\bfseries\fontsize{10}{12}\selectfont}
+  {\thesection}
+  {0.8em}
+  {}
+
+\titleformat{\subsection}
+  {\bfseries\itshape\fontsize{9.5}{10}\selectfont}
+  {\thesubsection}
+  {0.8em}
+  {}
+
+\titleformat{\subsubsection}
+  {\itshape\fontsize{9.5}{10}\selectfont}
+  {\thesubsubsection}
+  {0.8em}
+  {}
+
+% =========================================================
+% 5. METADATA ARTIKEL
+% =========================================================
+\title{Audit Committee Strength and Environmental Tax Transparency in Dampening Public Fraud Perceptions in ASEAN} 
+
+% Data Jurnal (JANGAN UBAH BAGIAN INI)
+\newcommand{\sdJournal}{Jurnal Inovasi Pajak Indonesia (JIPI)}
+\newcommand{\sdHomepage}{https://analysisdata.co.id/index.php/JIPI}
+\newcommand{\sdDOI}{https://doi.org/10.69725/jipi.v2i2.XXX} 
+
+% =========================================================
+% 6. LAYOUT HEADER KHUSUS (MAKETITLE)
+% =========================================================
+\makeatletter
+\renewcommand{\maketitle}{%
+  \thispagestyle{plain}
+  \definecolor{customblue}{HTML}{1F4E79} % Warna Biru Tema
+  
+  % --- HEADER ATAS ---
+  \noindent
+  \begin{minipage}[c]{0.20\textwidth}
+    \raggedright
+    \href{https://creativecommons.org/licenses/by/4.0/}{%
+       \includegraphics[width=2.5cm, keepaspectratio]{Open_Access_logo.png}%
+    }
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{0.78\textwidth}
+    \begin{flushright}
+      \fontsize{8}{10}\selectfont
+      E-ISSN: 3047-8774 \quad P-ISSN: 3048-3794\\
+      \textit{Jurnal Inovasi Pajak Indonesia (JIPI)}, Vol.\ 2, No.\ 2, July 2025, pp.\ 83--95\\
+      \doilink{\sdDOI}\,
+      \href{\sdDOI}{\sdDOI}
+    \end{flushright}
+  \end{minipage}
+
+  \vspace{0.15cm} 
+  \noindent\hrule height 0.4pt
+  \vspace{0.20cm}
+
+  % --- HEADER TENGAH ---
+  \def\imageheight{2.8cm} 
+  \def\boxheight{2.1cm}   
+
+  \noindent
+  \begin{minipage}[c]{0.15\textwidth}
+    \centering 
+    \includegraphics[height=\imageheight,width=\linewidth,keepaspectratio]{Logo.png}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{0.65\textwidth}
+    \centering
+    \colorbox{customblue!10}{%
+      \parbox[c][\boxheight][c]{\dimexpr\linewidth-2\fboxsep\relax}{%
+        \centering
+        {\footnotesize Contents lists available at \href{https://analysisdata.co.id/}{\textcolor{customblue}{Inovasi Analisis Data}}}\par
+        \vspace{0.15cm} 
+        {\Large\bfseries \sdJournal}\par
+        \vspace{0.15cm}
+        {\footnotesize journal homepage: \href{\sdHomepage}{\sdHomepage}}\par
+      }%
+    }%
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{0.12\textwidth}
+    \centering 
+    \includegraphics[height=\imageheight,width=\linewidth,keepaspectratio]{Cover-JIPI.png}
+  \end{minipage}
+  
+  \vspace{0.30cm}
+  \noindent\hrule height 3pt
+  \vspace{0.50cm} 
+  
+  % --- JUDUL & PENULIS ---
+  \begin{justify}
+  \color{customblue}
+  {\fontsize{14}{18}\selectfont\bfseries \@title \par}
+  \end{justify}
+  \vspace{0.40cm}
+  
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+  \color{customblue}
+    {\fontsize{11}{12}\selectfont\bfseries 
+      Nama Penulis Satu\textsuperscript{1,*}\,\orcidlink{https://orcid.org/0000-0000-0000-0000},\;
+      Nama Penulis Dua\textsuperscript{2}\,\orcidlink{https://orcid.org/0000-0000-0000-0000}
+    } & \crossmarklink
+  \end{tabularx}
+  \vspace{0.20cm}
+  
+  {\noindent \fontsize{7}{10}\selectfont
+    \textsuperscript{1}Department of Taxation, Faculty of Economics, Universitas Indonesia, Depok, Indonesia\\
+    \textsuperscript{2}Department of Accounting, Faculty of Business, Universitas Gadjah Mada, Yogyakarta, Indonesia\\
+  \par}
+  \vspace{0.30cm}
+}
+\makeatother
+
+% =========================================================
+% 7. KOTAK ABSTRAK & HISTORY
+% =========================================================
+\newcommand{\articleinfobox}{%
+  \noindent\hrule height 0.4pt
+  \vspace{0.18cm}
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X@{}}
+    \parbox[c][2.6ex][c]{\linewidth}{\footnotesize\bfseries A\ R\ T\ I\ C\ L\ E\ \ I\ N\ F\ O} &
+    \parbox[c][2.6ex][c]{\linewidth}{\footnotesize\bfseries A\ B\ S\ T\ R\ A\ C\ T} \\
+    \noalign{\vspace{2pt}}
+    \hrulefill & \hrulefill \\
+    \noalign{\vspace{6pt}}
+    \footnotesize
+    \textbf{Article history:}\par
+    Received: 10 May 2025\par
+    Revised: 15 June 2025\par
+    Accepted: 01 July 2025\par
+    \vspace{0.26cm}
+    \textbf{Correspondence:}\par
+    Nama Penulis (Email)\ \mailicon{author@campus.ac.id}\par
+    \vspace{0.26cm}
+    \textbf{Keywords:}\par
+    Tax compliance; MSME; Digitalization; Indonesia; Tax revenue
+    &
+    \small 
+    \noindent\textbf{Purpose:} The objective of this study is to examine the influence of digital tax administration systems on the compliance behavior of MSMEs in Indonesia.\par\smallskip
+    \noindent\textbf{Method:} This research employs a quantitative approach using Partial Least Squares Structural Equation Modeling (PLS-SEM). Data were collected from 250 MSME respondents in Java and Sumatra.\par\smallskip
+    \noindent\textbf{Findings:} The results indicate that perceived ease of use and usefulness of the e-filing system significantly positively impact voluntary tax compliance.\par\smallskip
+    \noindent\textbf{Novelty:} This study integrates the Technology Acceptance Model (TAM) with the Slippery Slope Framework to explain tax behavior in developing economies.\par\smallskip
+    \noindent\textbf{Implications:} The Directorate General of Taxes needs to simplify the user interface of digital tax applications to accommodate users with low digital literacy.\par
+    \\
+  \end{tabularx}
+  \vspace{0.12cm}
+  \noindent\hrule height 0.6pt
+  \vspace{0.18cm}
+}
+
+% =========================================================
+% 8. KONTEN UTAMA (BODY)
+% =========================================================
+\begin{document}
+
+\maketitle      
+\articleinfobox 
+\setcounter{page}{83} 
+
+\begin{multicols}{2} 
+
+% =========================================================
+% 1. INTRODUCTION
+% =========================================================
+\section{Introduction}
+% --- START FONT SIZE 9pt ---
+\begin{small}
+Swindles and governance failures are widespread in public and corporate institutions where they have even stronger presence in emerging economies having varying of Institutional Development, Budget Transparency and Oversight Structures. Recent worldwide studies indicate that, among other things, fraud is corrosive to public confidence and tax morale; it hollows out the environmental taxes agenda \cite{Rezaee2024, OECD2023, TransparencyInternational2022}. In Southeast Asia, the movement away from traditional tax systems and towards more digitalized ones have increased public scrutiny -- perceptions of misuse, lack of control and elite capture are all significant influencing factors on attitudes to fraud and compliance \cite{Tuinsma2025, Baghdadi2022}. These mechanisms are not limited to the technical malfunction and need to be recognised as a behavioural and governance issue within an organization.
+
+Previous research has investigated fraud detection and prevention from various underlying lenses, such as internal control structures, forensic accounting, and corporate governance procedures. Audit committee and transparency is found to be one of the independent mitigating factors towards fraud risk across numerous studies \cite{Abbott2004, Othman2015, Hassan2025}. Parallel held literatures report that tax transparency enhances compliance and diminishes opportunistic behavior when fiscal information is perceived to be credible and accessible \cite{Gallemore2014, Tuinsma2025}. However, other research suggests that the effects of governance mechanisms on fraud-related outcomes tend to be mixed or not statistically significant especially in contexts with low enforcement and symbolic compliance \cite{Klein2002, Power1997}. This discrepancy hints at a lack of consistency in the actionability of governance tools across contexts and populations.
+
+This study, in theoretical terms is based on the Fraud Triangle and Fraud Diamond theories which articulate fraud as emanating from pressure, opportunity, rationalization and capability \cite{Wolfe2004, Albrecht2012}. These approaches highlight that fraud drivers are behavioural and situational, playing against institutional structures rather than in isolation of them. This concept of deterrence is reinforced by deterrence theory which posits that credible watch and punishment upsurge the perception of detection risk and limit fraud behavior \cite{Becker1968}. Furthermore, institutional and stakeholder theories argue that transparency, taxation legitimacy and audit oversight influence trust and compliance through the signalling of accountability and conformity to social norms.
+
+However, the literature reveals a number of gaps and inconsistencies. While some research documents that a high-quality AC significantly mitigates fraud and enhances reporting quality \cite{Abbott2004, DeZoort2002}, other studies are inconclusive or find no effects when the committee lacks substantive independence or expertise \cite{Klein2002, Rezaee2004}. In a similar fashion, tax transparency has been found to increase compliance and trust \cite{Gallemore2014}, but recent research indicates that the effects of transparency actions can be dampened or uneven when considered ceremonial or weakly enforced \cite{Tuinsma2025, Power1997}. There is no clear consensus in environmental tax research regarding compliance outcomes: some find `no' to `mixed' results showing that voluntary compliance can be driven by moral and/or sustainability norms \cite{OECD2019, Torgler2007}, while others point out to resistance or skepticism directly related to the credibility of governance. These emergent and sometimes divergent findings highlight the necessity for combining fraud behavior, taxation fraud and audit jurisdiction in a meta-analysis.
+
+To fill this gap, we test the direct and indirect effects of fraud drivers on anti-fraud intention via tax transparency perception and environmental tax compliance orientation while accounting for the moderating role of audit committee strength. Drawing on a cross-country and cross-group design within the context of an increasing number of ASEAN economies, this study contributes by: (i) applying behavioral fraud theory to fiscal and environmental governance; (ii) responding to conflicting prior findings through mediation and moderation analysis; and (iii) providing useful implications for policy-makers, audit committees as well as educators interested in enhancing fraud deterrence and tax legitimacy. The results can be used to draw implications for corporate governance reforms, the improvement of auditing oversight practices as well as sustainable tax policy alternatives.
+
+The rest of this paper is structured as follows. The literature review and the research hypothesis are set forth in Section 2. The research design, sample, instruments of measurement and data analyses are presented in section 3. The empirical findings are reported in Section 4, and discussion and implications are covered in Section 5. Lastly, the paper wraps up with constraints and future research directions.
+
+\end{small}
+% --- END FONT SIZE 9pt --- \lipsum[1]
+
+The urgency of this research lies in the recent changes in tax regulations. \lipsum[2]
+
+% =========================================================
+% 2. LITERATURE REVIEW
+% =========================================================
+\section{Literature Review}
+
+\subsection{Theoretical foundation}
+This study is grounded in the Technology Acceptance Model (TAM) proposed by Davis (1989). 
+
+\subsection{Fraud drivers and anti-fraud outcomes}
+This study is grounded in the Technology Acceptance Model (TAM) proposed by Davis (1989). 
+
+\subsection{Fraud drivers, tax transparency, and environmental tax orientation}
+This study is grounded in the Technology Acceptance Model (TAM) proposed by Davis (1989). 
+
+\subsection{Moderating role of audit committee strength}
+This study is grounded in the Technology Acceptance Model (TAM) proposed by Davis (1989). 
+
+\subsection{Research framework}
+This study is grounded in the Technology Acceptance Model (TAM) proposed by Davis (1989). 
+
+\subsection{Hypothesis Development}
+\lipsum[3]
+\begin{itemize}
+    \item \textbf{H1:} Digital literacy has a positive effect on tax compliance.
+    \item \textbf{H2:} Tax knowledge mediates the relationship.
+\end{itemize}
+% =========================================================
+% GAMBAR 1: CONCEPTUAL MODEL (Figure1.png)
+% =========================================================
+\end{multicols} % 1. Matikan kolom
+
+\begin{figure}[H] 
+    \centering
+    % NAMA FILE BARU: Figure1.png
+    \includegraphics[width=\linewidth, keepaspectratio]{Figure1.png} 
+    
+    \caption{Conceptual Framework Model} 
+    \label{fig:conceptual}
+    
+    % Kurangi jarak bawah judul gambar
+    \vspace{-0.3cm} 
+\end{figure}
+
+% Tarik Bab 3 ke atas supaya tidak jauh
+\vspace{-0.10cm} 
+
+\begin{multicols}{2} % 2. Hidupkan kolom lagi
+
+% =========================================================
+% 3. METHODS INNOVATION
+% =========================================================
+\section{Methods Innovation}
+
+\subsection{Research Design}
+Methodology Statistical Analysis This study is a quantitative cross-sectional survey based on the principles of behavioral governance research. This type of design is commonly deployed in the testing of disguised constructs about fraud perception, tax behaviour and governance mechanisms among heterogeneous respondents \citep{hair2019}. Perception-based surveys should be especially suitable for research on fraud as the fraudulent act is usually unobservable, and attitudes and intentions instead of behavior are more apt to reflect its existence \citep{rezaee2004}. Additionally, the inclusion of tax and audit governance variables is consistent with previous research that focuses on institutional and behavioral interactions in fraud prevention \citep{othman2015, hassan2025}.
+
+\subsection{Research Object and Sample}
+The research object is the perceptions of drivers of fraud, tax governance, and audit oversight in the public sector and environmental accounting. The sample includes respondents in Malaysia, Brunei Darussalam, Thailand, and Indonesia with different institutional conditions within Southeast Asia. These settings are often studied in governance and fraud studies because of their evolving regulatory environments \citep{rahman2014, tuinsma2025}. The sample consists of lay persons and students in accounting, academics, and accounting/auditing professionals. The data were gathered by following snowball sampling on online social medias which is a standard approach for perception studies \citep{baltar2012, hair2019}.
+
+Response demographics are summarized in Appendix A.
+
+\subsection{Variable Instruments}
+All the constructs were measured with 5-point Likert-scale items from prior literature in fraud, taxation and governance. Fraud diamond drivers was identified as one such formative construct, given its multiple dimensions of pressure, opportunity, rationalization and capability \citep{wolfe2004}. In contrast, the tax transparency perception, the environmental tax compliance orientation, the audit committee strength and anti-fraud intention constructs were treated reflexively as in prior behavioral accounting research \citep{torgler2007, rezaee2004}. In the process of instrument adaptation, conceptual equivalence across countries was confirmed by the concept validity method \citep{hair2019}.
+
+The full scales and their sources can be found in Appendix B.
+
+\subsection{Data Analysis}
+We tested our hypotheses by employing Partial Least Squares Structural Equation Modeling (PLS-SEM) that is suitable to assess complex models with mediation and moderation, both formative and reflective indicators, and non-normal data distribution \citep{hair2019}. PLS-SEM is particularly suitable for exploratory and prediction-driven governance research \citep{sarstedt2017}. The analysis was completed in two stages; namely, measurement model (reliability and validity) and structural model (Path coefficients, mediation and moderation effects). Bootstrapping methods were employed to examine the statistical significance and robustness of our hypothesized relationships \citep{preacher2008}.
+
+% =========================================================
+% 4. RESULTS AND DISCUSSION
+% =========================================================
+\section{Results and Discussion}
+
+\subsection{Demographic Profile}
+The demographic profile of respondents is presented in Table 1. The majority of respondents (60\%) have been operating for more than 5 years.
+
+% ============================================
+% TABLE 1 (FULL WIDTH)
+% ============================================
+\end{multicols} 
+
+\begin{table}[H] 
+    \centering
+    \caption{Demographic Profile of Respondents}
+    \label{tab:demographic}
+    \begin{tabularx}{\textwidth}{X c c c}
+        \toprule
+        \textbf{Category} & \textbf{Item} & \textbf{Frequency} & \textbf{Percentage (\%)} \\
+        \midrule
+        Gender & Male & 150 & 60.0 \\
+               & Female & 100 & 40.0 \\
+        \midrule
+        Business Age & < 1 Year & 30 & 12.0 \\
+                     & 1 - 5 Years & 70 & 28.0 \\
+                     & > 5 Years & 150 & 60.0 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{multicols}{2} 
+% ============================================
+
+\subsection{Measurement Model Evaluation (Outer Model)}
+The validity and reliability of the constructs were assessed using Convergent Validity (AVE) and Composite Reliability (CR). As shown in Table 2, the results are satisfactory.
+
+% ============================================
+% TABLE 2 (FULL WIDTH)
+% ============================================
+\end{multicols}
+
+\begin{table}[H] 
+    \centering
+    \caption{Convergent Validity and Reliability Results}
+    \label{tab:validity}
+    \begin{tabularx}{\textwidth}{X c c c}
+        \toprule
+        \textbf{Construct} & \textbf{Cronbach's Alpha} & \textbf{Composite Reliability} & \textbf{AVE} \\
+        \midrule
+        Digital Literacy (DL) & 0.845 & 0.892 & 0.654 \\
+        Tax Knowledge (TK)    & 0.812 & 0.885 & 0.621 \\
+        Tax Compliance (TC)   & 0.878 & 0.915 & 0.712 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{multicols}{2}
+
+Furthermore, Discriminant Validity is shown in Table 3.
+
+% ============================================
+% TABLE 3 (FULL WIDTH)
+% ============================================
+\end{multicols}
+
+\begin{table}[H]
+    \centering
+    \caption{Discriminant Validity (Fornell-Larcker Criterion)}
+    \label{tab:discriminant}
+    \begin{tabularx}{\textwidth}{X c c c}
+        \toprule
+        \textbf{Construct} & \textbf{Digital Literacy} & \textbf{Tax Knowledge} & \textbf{Tax Compliance} \\
+        \midrule
+        Digital Literacy & \textbf{0.809} & & \\
+        Tax Knowledge    & 0.456 & \textbf{0.788} & \\
+        Tax Compliance   & 0.512 & 0.634 & \textbf{0.844} \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{multicols}{2}
+
+% ============================================
+% FIGURE 2 (FULL WIDTH)
+% Otomatis jadi Figure 2 jika sebelumnya sudah ada Figure 1
+% ============================================
+\end{multicols}
+
+\begin{figure}[H] 
+    \centering
+    % Ganti 'example-image-b' dengan nama file gambar Anda
+    \includegraphics[width=0.9\textwidth, height=6cm]{example-image-b} 
+    \caption{Measurement Model (Outer Model) Analysis from SmartPLS}
+    \label{fig:outermodel}
+\end{figure}
+
+\begin{multicols}{2}
+
+\subsection{Structural Model (Inner Model)}
+The results of the structural model test are presented in Figure 3 and detailed in Table 4.
+
+% ============================================
+% FIGURE 3 (FULL WIDTH)
+% ============================================
+\end{multicols}
+
+\begin{figure}[H] 
+    \centering
+    % Ganti 'example-image-c' dengan nama file gambar Anda
+    \includegraphics[width=0.9\textwidth, height=6cm]{example-image-c} 
+    \caption{Structural Model (Inner Model) Path Coefficients}
+    \label{fig:innermodel}
+\end{figure}
+
+\begin{multicols}{2}
+
+% ============================================
+% TABLE 4 (FULL WIDTH)
+% ============================================
+\end{multicols}
+
+\begin{table}[H]
+    \centering
+    \caption{Hypothesis Testing Results (Direct Effects)}
+    \label{tab:hypothesis}
+    \begin{tabularx}{\textwidth}{X c c c c}
+        \toprule
+        \textbf{Hypothesis} & \textbf{Path} & \textbf{Coeff} & \textbf{T-Stat} & \textbf{Result} \\
+        \midrule
+        H1 & Digital Literacy $\rightarrow$ Compliance & 0.234 & 2.456 & Supported \\
+        H2 & Tax Knowledge $\rightarrow$ Compliance    & 0.456 & 4.123 & Supported \\
+        H3 & Ease of Use $\rightarrow$ Intention       & 0.312 & 3.789 & Supported \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{multicols}{2}
+
+Based on Table 4, all proposed hypotheses are supported with T-statistics values greater than 1.96.
+
+\subsection{Robustness Check}
+A robustness check was performed to compare compliance levels between Java and Non-Java regions.
+
+% ============================================
+% TABLE 5 (FULL WIDTH)
+% ============================================
+\end{multicols}
+
+\begin{table}[H]
+    \centering
+    \caption{Multi-Group Analysis (MGA): Java vs. Non-Java}
+    \label{tab:mga}
+    \begin{tabularx}{\textwidth}{X c c c}
+        \toprule
+        \textbf{Path} & \textbf{Java ($\beta$)} & \textbf{Non-Java ($\beta$)} & \textbf{Difference (p-value)} \\
+        \midrule
+        DL $\rightarrow$ Compliance & 0.250 & 0.180 & 0.045* \\
+        TK $\rightarrow$ Compliance & 0.460 & 0.440 & 0.678 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{multicols}{2}
+
+\subsection{Discussion}
+The findings indicate that digital literacy plays a crucial role in enhancing tax compliance. \lipsum[4]
+
+% 5. CONCLUSION
+\section{Conclusion}
+This study concludes that digital tax administration has a significant positive impact on MSME tax compliance. The easier the system is to use, the higher the compliance rate.
+
+\vspace{0.5cm} 
+
+% =========================================================
+% BAGIAN "LINE OUT" - UNNUMBERED SECTIONS
+% =========================================================
+
+\section*{Implications and Limitations}
+
+\subsection*{Theoretical Implications}
+This study enriches the literature on TAM and Tax Compliance by demonstrating...
+
+\subsection*{Practical Implications}
+For tax practitioners and MSME owners, this study suggests...
+
+\subsection*{Policy Implications}
+The government should focus on improving digital infrastructure...
+
+\subsection*{Limitations}
+This study has several limitations, including the sample size and geographical scope...
+
+\subsection*{Future Research Directions}
+Future researchers are encouraged to expand the scope to...
+
+\vspace{0.3cm}
+\section*{Ethical Statements}
+
+\subsection*{Ethical Approval}
+This study was approved by the Ethics Committee of [University Name] (No. 123/EC/2025).
+
+\subsection*{Consent to Participate}
+Informed consent was obtained from all individual participants included in the study.
+
+\subsection*{Consent for Publication}
+The authors affirm that human research participants provided informed consent for publication.
+
+\subsection*{Declaration of AI Use}
+Generative AI tools were used only for grammar checking and language refinement. No AI was used to generate data or analysis.
+
+\vspace{0.3cm}
+\section*{Transparency Statements}
+
+\subsection*{Data Availability}
+The datasets generated during the current study are available from the corresponding author on reasonable request.
+
+\subsection*{Code Availability}
+The analysis codes used in SmartPLS are available in the supplementary material.
+
+\subsection*{Algorithm Transparency}
+The algorithms used followed standard PLS-SEM procedures without modification.
+
+\vspace{0.3cm}
+% --- END MATTER ---
+\section*{Author Contributions}
+\textbf{Author 1:} Conceptualization, Methodology. \textbf{Author 2:} Data curation, Writing - Original draft.
+
+\section*{Acknowledgments}
+The authors would like to thank the reviewers for their constructive comments.
+
+\section*{Funding}
+This research received no external funding.
+
+\section*{Competing Interests Declaration}
+The authors declare no competing interests.
+
+\section*{Supplementary Materials}
+Supplementary material associated with this article can be found in the online version.
+
+% --- APPENDIX ---
+\appendix
+\section*{Appendix}
+\subsection*{Questionnaire Items}
+\begin{itemize}
+    \item Item 1: ...
+    \item Item 2: ...
+\end{itemize}
+
+\end{multicols}
+
+% ... (Teks Appendix atau penutup Anda berakhir di sini) ...
+
+% =========================================================
+% --- REFERENCES (OUTLINE FIX & SAME PAGE) ---
+% =========================================================
+
+% 1. Perintah agar Link Outline akurat (tidak loncat)
+\phantomsection 
+
+% 2. Masukkan ke Outline Sidebar sebagai 'section' (sejajar dengan Introduction)
+\addcontentsline{toc}{section}{References}
+
+% 3. Tampilkan Daftar Pustaka
+% Karena diletakkan SEBELUM \end{multicols}, dia akan nyambung langsung (tidak ganti halaman)
+\bibliographystyle{apalike}
+\bibliography{references}
+
+% Tutup kolom ganda SETELAH Referensi selesai
+
+\end{document}
